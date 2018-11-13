@@ -1,9 +1,4 @@
 import scipy.special
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.naive_bayes import MultinomialNB
-from sklearn import svm
-from DataLoader import *
-
 
 def binomial(n, k):
     ret = 1
@@ -39,6 +34,7 @@ def sign_test(target, predictionsA, predictionsB):
             else:
                 A_false_neg += 1
 
+    print("\n\nSign test results: ")
     print("Plus: ", plus, " Minus:", minus, " Null:", null)
     print("A false pos:", A_false_pos, " false neg:", A_false_neg)
     print("B false pos:", B_false_pos, " false neg:", B_false_neg)
@@ -50,26 +46,3 @@ def sign_test(target, predictionsA, predictionsB):
         p += scipy.special.comb(n, i, exact=True)
 
     return p / 2 ** (n - 1)
-
-
-"""
-X, Y = load_data()
-X_train = X[:1400]
-Y_train = Y[:1400]
-X_test = X[1400:]
-Y_test = Y[1400:]
-
-vectorizer = CountVectorizer()
-X_train_counts = vectorizer.fit_transform(X_train)
-X_test_counts = vectorizer.transform(X_test)
-
-nb_model = MultinomialNB()
-clf = nb_model.fit(X_train_counts, Y_train)
-predictA = clf.predict(X_test_counts)
-
-svm_model = svm.SVC(kernel='linear')
-clf = svm_model.fit(X_train_counts, Y_train)
-predictB = clf.predict(X_test_counts)
-
-print("Sign test result: ", sign_test(Y_test, predictA, predictB))
-"""

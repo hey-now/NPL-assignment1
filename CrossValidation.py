@@ -18,7 +18,7 @@ def get_folds(X,Y):
     return folds
 
 
-def cross_validate(X, Y, model, vectorizer):
+def cross_validate(X, Y, vectorizer):
     folds = get_folds(X, Y)
     nb_accuracies = []
     svm_accuracies = []
@@ -42,7 +42,7 @@ def cross_validate(X, Y, model, vectorizer):
         print("Fold ", i+1)
 
         X_train_counts = vectorizer.fit_transform(X_train)
-        print("Features:", X_train_counts.shape)
+        print("Feature number:", X_train_counts.shape[1])
         X_test_counts = vectorizer.transform(X_test)
 
         predictA = MultinomialNB().fit(X_train_counts, Y_train).predict(X_test_counts)
@@ -57,11 +57,11 @@ def cross_validate(X, Y, model, vectorizer):
         print('SVM accuracy:', svm_accuracy)
         svm_accuracies.append(svm_accuracy)
 
-    sign_test_result = sign_test(Y, predictionsA, predictionsB)
-    print("Sign test result: ", sign_test_result)
-
-    print('NB mean accuracy:', np.mean(nb_accuracies))
+    print('\nNB mean accuracy:', np.mean(nb_accuracies))
     print('SVM mean accuracy:', np.mean(svm_accuracies))
+
+    sign_test_result = sign_test(Y, predictionsA, predictionsB)
+    print("Sign test p=", sign_test_result)
 
 
 def classifier(X_train, X_test, Y_train, model, vectorizer):
@@ -74,18 +74,15 @@ def classifier(X_train, X_test, Y_train, model, vectorizer):
 
 
 X, Y = load_data()
-model = svm.SVC(kernel='linear')
-
-
 vectorizer = CountVectorizer(ngram_range=(1, 1), binary=False)
-cross_validate(X, Y, model, vectorizer)
+cross_validate(X, Y, vectorizer)
 
-""""
+"""
 vectorizer = CountVectorizer(ngram_range=(2, 2), binary=True)
-cross_validate(X, Y, model, vectorizer)
+cross_validate(X, Y, vectorizer)
 
 vectorizer = CountVectorizer(ngram_range=(1, 2), binary=True)
-cross_validate(X, Y, model, vectorizer)
+cross_validate(X, Y, vectorizer)
 
 vectorizer = CountVectorizer(ngram_range=(1, 1), min_df=5, binary=True)
-cross_validate(X, Y, model, vectorizer)"""
+cross_validate(X, Y, vectorizer)"""
