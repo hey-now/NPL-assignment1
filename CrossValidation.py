@@ -42,7 +42,7 @@ def cross_validate(X, Y, vectorizer):
         print("Fold ", i+1)
 
         X_train_counts = vectorizer.fit_transform(X_train)
-        print("Feature number:", X_train_counts.shape[1])
+        print("Features number:", X_train_counts.shape[1])
         X_test_counts = vectorizer.transform(X_test)
 
         predictA = MultinomialNB().fit(X_train_counts, Y_train).predict(X_test_counts)

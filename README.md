@@ -8,9 +8,9 @@ Place the datasets in the folders "POS" and "NEG" in the main directory (they ar
 
 Install following libraries:
 ```
-pip install sklearn
-pip install scipy
-pip install numpy
+pip3 install sklearn
+pip3 install scipy
+pip3 install numpy
 ```
 
 ### Running
@@ -19,5 +19,5 @@ Run CrossValidation.py file with python 3.6 in order to perform the main experim
 One can also change ngram_range and binary parameters in vectorizer in order to test on different features. 
 
 ```
-python ./CrossValidation.py
+python3 ./CrossValidation.py
 ```
